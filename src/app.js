@@ -6,6 +6,7 @@ import horarioRoutes from './routes/horario.routes';
 import tipoRoutes from './routes/tipo.routes';
 import empleadoRoutes from './routes/empleado.routes';
 import usuarioRoutes from './routes/usuario.routes';
+import rolRoutes from './routes/rol.routes';
 
 getConnection();
 
@@ -23,6 +24,7 @@ app.use(horarioRoutes)
 app.use(tipoRoutes)
 app.use(empleadoRoutes)
 app.use(usuarioRoutes)
+app.use(rolRoutes)
 
 
 export default app //exportamos app
