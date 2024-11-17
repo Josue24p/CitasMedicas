@@ -8,6 +8,7 @@ import empleadoRoutes from './routes/empleado.routes';
 import usuarioRoutes from './routes/usuario.routes';
 import rolRoutes from './routes/rol.routes';
 import medicoRoutes from './routes/medico.routes';
+import turnoRoutes from './routes/turno.routes';
 getConnection();
 
 const app = express() //app tiene el uso del express
@@ -26,5 +27,5 @@ app.use(empleadoRoutes)
 app.use(usuarioRoutes)
 app.use(rolRoutes)
 app.use(medicoRoutes)
-
+app.use(turnoRoutes)
 export default app //exportamos app
