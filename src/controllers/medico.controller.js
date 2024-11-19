@@ -117,3 +117,16 @@ export const eliminarMedico = async (req, res) => {
         res.status(500).json({ message: 'Error al eliminar al medico' });
     }
 }
+
+// medico.controller.js
+
+export const getEspecialidades = async (req, res) => {
+    try {
+        const pool = await getConnection();
+        const result = await pool.request().query("SELECT * FROM especialidad");
+        res.json(result.recordset); // Retorna las especialidades como un arreglo
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Error al obtener especialidades' });
+    }
+};

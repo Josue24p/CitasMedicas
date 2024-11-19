@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Cita Médica</title>
+    <link rel="stylesheet" href="medicos.css"> <!-- Agrega tus estilos aquí -->
+</head>
+<body>
+    <div class="container">
+        <h2>Reserva tu Cita Médica</h2>
+        <form id="reserva-form">
+            <!-- Especialidad -->
+            <label for="especialidad">Especialidad</label>
+            <select id="especialidad" name="especialidad">
+                <option value="">Selecciona una especialidad</option>
+            </select>
+
+            <!-- Médico -->
+            <label for="medico">Médico</label>
+            <select id="medico" name="medico" disabled>
+                <option value="">Selecciona un médico</option>
+            </select>
+
+            <!-- Turno -->
+            <label for="turno">Turno</label>
+            <select id="turno" name="turno" disabled>
+                <option value="">Selecciona un turno</option>
+            </select>
+
+            <!-- Horario -->
+            <label for="horario">Horario</label>
+            <select id="horario" name="horario" disabled>
+                <option value="">Selecciona un horario</option>
+            </select>
+
+            <button type="submit" id="submit-btn" disabled>Reservar Cita</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script> <!-- Tu archivo de JS aquí -->
+</body>
+</html>

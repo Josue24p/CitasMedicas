@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Médico</title>
+    <link rel="stylesheet" href="medicos.css"> <!-- Opcional: archivo CSS -->
+</head>
+<body>
+    <h1>Registrar Médico</h1>
+    <form id="formMedico">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" required>
+
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required>
+
+        <label for="fecha_nac">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nac" name="fecha_nac" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="id_espec">Especialidad:</label>
+        <select id="id_espec" name="id_espec" required>
+            <option value="">Seleccione una especialidad</option>
+            <!-- Las especialidades se llenarán dinámicamente -->
+        </select>
+
+        <button type="submit">Registrar Médico</button>
+    </form>
+
+    <script src="registrarMedico.js"></script>
+</body>
+</html>
