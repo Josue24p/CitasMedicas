@@ -10,7 +10,9 @@ import rolRoutes from './routes/rol.routes';
 import medicoRoutes from './routes/medico.routes';
 import turnoRoutes from './routes/turno.routes';
 import citaRoutes from './routes/citas.routes';
+import autenticacion from './routes/auth.routes';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 getConnection();
 
 const app = express() //app tiene el uso del express
@@ -22,6 +24,7 @@ app.set("port",config.port)
 app.use(express.json()) //permite  que los datos se envian en formato json
 app.use(express.urlencoded({ extended: false }));//recibe datos que viene del formulario html
 app.use(morgan('dev'))
+app.use(cookieParser());
 
 app.use(especialidadRoutes)
 app.use(horarioRoutes)
@@ -32,4 +35,5 @@ app.use(rolRoutes)
 app.use(medicoRoutes)
 app.use(turnoRoutes)
 app.use(citaRoutes)
+app.use(autenticacion)
 export default app //exportamos app
