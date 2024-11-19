@@ -58,6 +58,45 @@ export const createUsuario = async (req, res) => {
     }
 }
 
+/*Se agrega función insertar usuario de forma global donde se puede guardar los datos recibidos en una constante userData y capturar el ID Generado la cual vamos a guardar en un parametro. Luego se usa otra función de crear el usuario 
+donde vamos a llamar a la función creada y los datos que se reciba se guardará en el parametro creado en la anterior función, cosa que genera un nuevo usuario*/
+export const insertUsuario = async (userData) => {
+    const { nombre, apellido, dni, fech_nac, telefono, email, password, id_rol } = userData;
+
+    if (!nombre || !apellido || !dni || !fech_nac || !telefono || !email || !password || !id_rol) {
+        throw new Error('Todos los campos son obligatorios');
+    }
+
+    const pool = await getConnection();
+    const result = await pool.request()
+        .input('Nombre', sql.VarChar, nombre)
+        .input('Apellido', sql.VarChar, apellido)
+        .input('Dni', sql.Char, dni)
+        .input('Fech_nac', sql.Date, fech_nac)
+        .input('Telefono', sql.Char, telefono)
+        .input('Email', sql.VarChar, email)
+        .input('Password', sql.VarChar, password)
+        .input('Id_rol', sql.Int, id_rol)
+        .query(`
+            INSERT INTO usuario (nombre, apellido, dni, fech_nac, telefono, email, password, id_rol)
+            OUTPUT INSERTED.id_user
+            VALUES (@Nombre, @Apellido, @Dni, @Fech_nac, @Telefono, @Email, @Password, @Id_rol)
+        `);
+
+        return { id_user: result.recordset[0].id_user, ...userData }; // Devuelve el usuario creado
+};
+
+export const crearUsuarioGlobal = async (req, res) => {
+    try {
+        const userData = req.body;
+        const newUser = await insertUsuario(userData);
+        res.json(newUser);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: 'Error al crear el usuario global' });
+    }
+}
+
 export const updateUsuario = async (req, res) => {
     const { id } = req.params;
     const { nombre, apellido, dni, fech_nac, telefono, email, password, id_rol } = req.body;
