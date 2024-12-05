@@ -1,9 +1,9 @@
-const API_BASE_URL = "https://citasmedicasutp.onrender.com/api";
+const API_BASE_URL = "http://localhost:3000";
 
 // Función para cargar las especialidades
 async function loadEspecialidades() {
     try {
-        const response = await fetch(`${API_BASE_URL}/especialidad`);
+        const response = await fetch(`${API_BASE_URL}/especialidades`);
         const especialidades = await response.json();
         const especialidadSelect = document.getElementById("especialidad");
         
@@ -25,7 +25,7 @@ async function loadEspecialidades() {
 // Función para cargar los médicos según la especialidad seleccionada
 async function loadMedicos(especialidadId) {
     try {
-        const response = await fetch(`${API_BASE_URL}/medico/especialidad/${especialidadId}`);
+        const response = await fetch(`${API_BASE_URL}/medico/especialidades/${especialidadId}`);
         const medicos = await response.json();
         const medicoSelect = document.getElementById("medico");
         
@@ -73,45 +73,27 @@ async function loadTurnos(medicoId) {
 
 // Función para cargar los horarios disponibles según el turno seleccionado
 async function loadHorarios(turnoId) {
+    
     try {
-        const response = await fetch(`${API_BASE_URL}/horario/turno/${turnoId}`);
+        const response = await fetch(`http://localhost:3000/horario/turno/${turnoId}`);
+        if (!response.ok) throw new Error('Error al cargar los horarios');
+
         const horarios = await response.json();
-        const horarioSelect = document.getElementById("horario");
-        
+        const horarioSelect = document.getElementById('horario');
+
         // Limpiar opciones anteriores
-        horarioSelect.innerHTML = "<option value=''>Selecciona un horario</option>";
-        
+        horarioSelect.innerHTML = '<option value="">Selecciona un horario</option>';
+
         horarios.forEach(horario => {
-            const option = document.createElement("option");
+            const option = document.createElement('option');
             option.value = horario.id_horario;
-
-            // Formatear la fecha
-            const fecha = new Date(horario.fecha); // Convertir a objeto Date
-            const formattedDate = fecha.toLocaleDateString("es-PE"); // Formato DD/MM/YYYY (para Perú)
-
-            // Formatear la hora de inicio y fin
-            const horaInicio = new Date(`1970-01-01T${horario.hora_inicio}:00`);  // Añadir una fecha base válida
-            const horaFin = new Date(`1970-01-01T${horario.hora_fin}:00`);  // Añadir una fecha base válida
-
-            // Verificar si las horas son válidas
-            const formattedHoraInicio = !isNaN(horaInicio.getTime())
-                ? horaInicio.toLocaleTimeString("es-PE", { hour: '2-digit', minute: '2-digit' })
-                : "Hora no válida";
-
-            const formattedHoraFin = !isNaN(horaFin.getTime())
-                ? horaFin.toLocaleTimeString("es-PE", { hour: '2-digit', minute: '2-digit' })
-                : "Hora no válida";
-
-            // Mostrar la fecha y las horas
-            option.textContent = `${formattedDate} - ${formattedHoraInicio} - ${formattedHoraFin}`;
+            option.textContent = `${horario.hora_inicio} - ${horario.hora_fin}`;
             horarioSelect.appendChild(option);
         });
-        
-        // Habilitar el selector de horarios
-        horarioSelect.disabled = false;
 
+        horarioSelect.disabled = false;
     } catch (error) {
-        console.error("Error al cargar los horarios:", error);
+        console.error('Error al cargar los horarios:', error);
     }
 }
 

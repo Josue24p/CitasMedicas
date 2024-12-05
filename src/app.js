@@ -12,6 +12,7 @@ import turnoRoutes from './routes/turno.routes';
 import citaRoutes from './routes/citas.routes';
 import autenticacion from './routes/auth.routes';
 import morgan from 'morgan';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 getConnection();
 
@@ -25,7 +26,10 @@ app.use(express.json()) //permite  que los datos se envian en formato json
 app.use(express.urlencoded({ extended: false }));//recibe datos que viene del formulario html
 app.use(morgan('dev'))
 app.use(cookieParser());
-
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    credentials: true,
+}));
 app.use(especialidadRoutes)
 app.use(horarioRoutes)
 app.use(tipoRoutes)

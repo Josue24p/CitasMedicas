@@ -100,3 +100,24 @@ export const deleteRegistroTurno = async (req, res) => {
         res.status(500).json({ msg: 'Error al eliminar el turno' })
     }
 }
+
+export const getTurnosByMedico = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const pool = await getConnection();
+        const result = await pool
+            .request()
+            .input('Id_medico', sql.Int, id)
+            .query("SELECT * FROM reg_turno WHERE id_medico = @Id_medico");
+
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ message: 'No hay turnos para este médico.' });
+        }
+
+        res.json(result.recordset);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener turnos del médico.' });
+    }
+};

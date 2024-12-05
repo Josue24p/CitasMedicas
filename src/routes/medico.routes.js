@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getMedico, getMedicoById, crearMedico, eliminarMedico, actualizarMedico } from "../controllers/medico.controller";
+import { getMedico, getMedicoById, crearMedico, eliminarMedico, actualizarMedico, getMedicosByEspecialidad } from "../controllers/medico.controller";
 
 const router = Router()
 
@@ -10,5 +10,5 @@ router.put('/medico/:id', actualizarMedico)
 router.delete('/medico/:id', eliminarMedico)
 // medico.routes.js
 
-router.get('/especialidades', getEspecialidades);
+router.get('/medico/especialidades/:id', getMedicosByEspecialidad);
 export default router

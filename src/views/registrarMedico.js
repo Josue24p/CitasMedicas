@@ -2,7 +2,7 @@
 
 async function obtenerEspecialidades() {
     try {
-        const response = await fetch('https://citasmedicasutp.onrender.com/api/especialidad'); // URL de producción
+        const response = await fetch('http://localhost:3000/especialidades'); // URL de producción
         const especialidades = await response.json();
         
         console.log('Especialidades recibidas:', especialidades); // Agregar esta línea para depurar
@@ -39,7 +39,7 @@ async function registrarMedico(event) {
 
     // Enviar los datos al backend
     try {
-        const response = await fetch('https://citasmedicasutp.onrender.com/api/medico', { // URL de producción
+        const response = await fetch('http://localhost:3000/medico', { // URL de producción
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

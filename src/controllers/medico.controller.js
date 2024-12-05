@@ -120,13 +120,23 @@ export const eliminarMedico = async (req, res) => {
 
 // medico.controller.js
 
-export const getEspecialidades = async (req, res) => {
+export const getMedicosByEspecialidad = async (req, res) => {
+    const { id } = req.params;
+
     try {
         const pool = await getConnection();
-        const result = await pool.request().query("SELECT * FROM especialidad");
-        res.json(result.recordset); // Retorna las especialidades como un arreglo
+        const result = await pool
+            .request()
+            .input('Id_espec', sql.Int, id)
+            .query("SELECT * FROM medico WHERE id_espec = @Id_espec");
+
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ message: 'No hay médicos para esta especialidad.' });
+        }
+
+        res.json(result.recordset);
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Error al obtener especialidades' });
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener médicos por especialidad.' });
     }
 };
